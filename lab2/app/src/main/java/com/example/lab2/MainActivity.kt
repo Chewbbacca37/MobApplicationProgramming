@@ -38,10 +38,11 @@ data class ToDoItem(
 
 @Composable
 fun MainActivityScreen() {
-    // Список, який вміє оновлювати екран, коли в нього щось додають або видаляють
+    // Список, який зберігає значення в пам'яті телефону між перемальовками
     val itemList = remember { mutableStateListOf<ToDoItem>() }
 
     // Змінні для полів вводу
+    // mutableStateOf змушує екран перемалюватися, щоб показати нові дані
     var idInput by remember { mutableStateOf("") }
     var titleInput by remember { mutableStateOf("") }
     var descInput by remember { mutableStateOf("") }
@@ -49,9 +50,8 @@ fun MainActivityScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp) // Відступи від країв екрану
+            .padding(16.dp)
     ) {
-        // Заголовок
         Text(
             text = "Мої завдання",
             fontSize = 24.sp,
@@ -59,7 +59,7 @@ fun MainActivityScreen() {
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // --- 3. Список завдань (LazyColumn) ---
+        //Список завдань
         // weight(1f) означає "займи все доступне місце, залишивши трохи для меню знизу"
         LazyColumn(
             modifier = Modifier
@@ -67,7 +67,7 @@ fun MainActivityScreen() {
                 .fillMaxWidth()
         ) {
             items(itemList) { item ->
-                // Викликаємо функцію, яка малює красиву картку
+                // Викликаємо функцію, яка малює картку
                 ToDoItemRow(
                     item = item,
                     onDelete = { itemList.remove(item) } // Логіка видалення
@@ -75,7 +75,7 @@ fun MainActivityScreen() {
             }
         }
 
-        // --- 4. Панель додавання (Ввід даних) ---
+        // Панель додавання
         Card(
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
             modifier = Modifier.fillMaxWidth()
@@ -133,7 +133,7 @@ fun MainActivityScreen() {
     }
 }
 
-// --- 5. Окремий компонент для одного рядка (Card) ---
+// Окремий компонент для одного рядка (Card)
 @Composable
 fun ToDoItemRow(item: ToDoItem, onDelete: () -> Unit) {
     Card(
