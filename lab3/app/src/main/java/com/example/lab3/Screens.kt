@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-// Модель даних без картинки
+// Модель даних
 data class TouristPlace(
     val name: String,
     val description: String
 )
 
-// Список місць (тільки назва і опис)
+// Список місць
 val places = listOf(
     TouristPlace("Київ", "Столиця України. Багато церков, Хрещатик та багата історія."),
     TouristPlace("Львів", "Місто кави, шоколаду, старовинних вуличок та площі Ринок."),
@@ -26,7 +26,7 @@ val places = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TouristListScreen(
-    onPlaceClick: (TouristPlace) -> Unit
+    onPlaceClick: (TouristPlace) -> Unit //передаємо сюди функцію, яка спрацює, коли користувач натисне на кнопку
 ) {
     Scaffold(
         topBar = { TopAppBar(title = { Text("Туристичний Гід") }) }
